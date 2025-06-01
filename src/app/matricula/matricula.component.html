@@ -1,0 +1,107 @@
+<br/>
+<br/>
+<div class="container mt-5">
+    <h2 class="mb-4 text-primary">Gestión de Matrículas</h2>
+  
+    <!-- Botón de Crear -->
+    <div class="text-end mb-3">
+      <button class="btn btn-success" (click)="redirigirCrearMatricula()">
+        <i class="bi bi-plus-circle"></i> Nueva Matrícula
+      </button>
+    </div>
+  
+    <div class="row" *ngIf="Matriculas().length > 0; else sinMatriculas">
+      <div class="col-md-6 mb-4" *ngFor="let matricula of Matriculas(); trackBy: trackByIndex">
+        <div class="card shadow-sm border-start border-4 border-info">
+          <div class="card-body">
+            <h5 class="card-title text-info mb-3">
+              Matrícula <strong>#{{ matricula.MatriculaId }}</strong>
+            </h5>
+  
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <strong>Nombre:</strong> {{ matricula.Matricula }}
+              </li>
+              <li class="list-group-item">
+                <strong>Estudiante:</strong> {{ matricula.Estudiante?.Estudiante || 'No disponible' }}
+              </li>
+              <li class="list-group-item">
+                <strong>Fecha de Matrícula:</strong> {{ matricula.FechaDeMatricula | date:'shortDate' }}
+              </li>
+              <li class="list-group-item">
+                <strong>Estado:</strong> 
+                <span class="badge bg-secondary">{{ matricula.EstadoMatricula }}</span>
+              </li>
+              <li class="list-group-item">
+                <strong>Costo por Crédito:</strong> {{ matricula.CostoPorCredito | currency:'CRC' }}
+              </li>
+              <li class="list-group-item">
+                <strong>Costo de Matrícula:</strong> {{ matricula.CostoMatricula | currency:'CRC' }}
+              </li>
+              <li class="list-group-item">
+                <strong>Costo de Póliza:</strong> {{ matricula.CostoPoliza | currency:'CRC' }}
+              </li>
+              <li class="list-group-item">
+                <strong>Total a Pagar:</strong> 
+                <span class="fw-bold text-success">{{ matricula.TotalMatricula | currency:'CRC' }}</span>
+              </li>
+              <li class="list-group-item">
+                <strong>Creado el:</strong> {{ matricula.FechaDeCreacion | date:'short' }}
+              </li>
+              <li class="list-group-item">
+                <strong>Última Actualización:</strong> {{ matricula.ActualizadoEn | date:'short' }}
+              </li>
+            </ul>
+  
+            <!-- Cursos Matriculados -->
+            <div class="mt-3">
+              <h6>Cursos Matriculados:</h6>
+              <ng-container *ngIf="matricula.CursosMatriculados && matricula.CursosMatriculados.length > 0; else sinCursos">
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let curso of matricula.CursosMatriculados">
+                    {{ curso.Curso?.Curso || 'Nombre no disponible' }} 
+                    (ID: {{ curso.Curso?.CursoId || '---' }})<br>
+                   
+                  </li>
+                </ul>
+              </ng-container>
+  
+              <ng-template #sinCursos>
+                <p class="text-muted fst-italic">No hay cursos registrados en esta matrícula.</p>
+              </ng-template>
+            </div>
+  <!-- Botones -->
+<div class="mt-4 d-flex justify-content-end gap-2">
+
+  <!-- Botón Pagar solo si está pendiente -->
+  <button *ngIf="puedePagar(matricula.EstadoMatricula)"
+        class="btn btn-success btn-sm"
+        (click)="redirigirMatriculaPagar(matricula.MatriculaId)">
+  <i class="bi bi-credit-card"></i> Pagar
+</button>
+
+
+  <button class="btn btn-outline-warning btn-sm"
+          (click)="matricula.MatriculaId ? redirigirMatricula(matricula.MatriculaId) : null">
+    Editar
+  </button>
+
+  <button class="btn btn-outline-danger btn-sm"
+          (click)="matricula.MatriculaId ? borrarMatricula(matricula.MatriculaId) : null">
+    Eliminar
+  </button>
+</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Si no hay datos -->
+    <ng-template #sinMatriculas>
+      <div class="alert alert-info mt-3 text-center">
+        No hay matrículas registradas aún.
+      </div>
+    </ng-template>
+  </div>
+  

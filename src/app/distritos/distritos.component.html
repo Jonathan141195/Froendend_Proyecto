@@ -1,0 +1,33 @@
+<br/>
+<br/>
+<button (click)="redirigirCrearDistrito()">Crear Distrito</button>
+<ul>
+    @for (Distrito of Distritos(); track Distrito.DistritoId) {
+      <li>
+        {{ Distrito.DistritoId }}
+        <input type="text"
+          (keydown.enter)="modificarDistrito(Distrito.DistritoId, $event)"
+          [value]="Distrito.Distrito"
+          [value]="Distrito.CantonId"
+
+        />
+        <button (click)="borrarDistrito(Distrito.DistritoId)">Borra distrito {{ Distrito.DistritoId }}</button>
+      </li>
+    } @empty {
+      <li>Nada que mostrar.</li>
+    }
+    <li>
+        <input placeholder="Agregar Distrito" type="text" #nuevoDistrito />
+        <input placeholder="CantonId" type="text" #nuevoCantonId />
+        <button (click)="agregarDistrito(nuevoDistrito.value, nuevoCantonId.value)">Agregar</button>
+      </li>
+  </ul>
+<pre>
+    <code>
+        {{Distritos() | json }}
+    </code>
+</pre>
+
+
+
+<p>distritos works!</p>

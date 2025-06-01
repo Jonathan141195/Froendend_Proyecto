@@ -1,0 +1,35 @@
+<br/>
+<br/>
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Crear Nueva Carrera</h2>
+
+  <!-- ALERTA -->
+  <div *ngIf="mostrarAlerta" class="alert alert-info text-center mb-3">
+    {{ mensajeAlerta }}
+  </div>
+
+  <div class="card p-4 shadow-sm">
+    <div class="mb-3">
+      <label for="nombreCarrera" class="form-label">Nombre de la Carrera</label>
+      <input placeholder="Ingrese el nombre de la Carrera" type="text" class="form-control" [(ngModel)]="Carrera" name="carrera" />
+    </div>
+
+    <!-- Select para seleccionar múltiples sedes -->
+    <div class="mb-3">
+      <label for="sedes" class="form-label">Selecciona las Sedes</label>
+      <select id="sedes" class="form-control" multiple [(ngModel)]="SedeId" name="sedes">
+        <option *ngFor="let sede of Sedes()" [value]="sede.SedeId">
+          {{ sede.Sede }}
+        </option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary w-100" (click)="agregarCarrera(Carrera, SedeId)">
+      Agregar Carrera
+    </button>
+  </div>
+</div>
+
+  
+  
+

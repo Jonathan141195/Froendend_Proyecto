@@ -1,0 +1,118 @@
+<br />
+<br />
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="card shadow-lg border-0 rounded-4">
+          <div class="card-body p-4">
+            <h4 class="text-center mb-4 fw-bold text-primary">
+              <i class="bi bi-person-lines-fill"></i> Editar Oferta Académica
+            </h4>
+  
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="nombreOfertaAcademica" class="form-label fw-semibold">
+                Nombre de la Oferta Académica:
+              </label>
+              <input
+                id="nombreOfertaAcademica"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese el nombre de la Oferta Académica"
+                [(ngModel)]="OfertaAcademica.OfertaAcademica"
+                required
+              />
+              <div *ngIf="!OfertaAcademica.OfertaAcademica && mostrarAlerta" class="text-danger">
+                El nombre de la Oferta Académica es obligatorio.
+              </div>
+            </div>
+  
+            <!-- Carrera -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Carrera:</label>
+              <select [(ngModel)]="OfertaAcademica.CarreraId" class="form-select">
+                <option *ngFor="let carrera of Carreras()" [value]="carrera.CarreraId">
+                  {{ carrera.Carrera }}
+                </option>
+                <option *ngIf="Carreras().length === 0" disabled class="text-muted">
+                  No hay carreras disponibles
+                </option>
+              </select>
+            </div>
+  
+            <!-- Período -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Período:</label>
+              <select [(ngModel)]="OfertaAcademica.Periodo" class="form-select">
+                <option *ngFor="let periodo of estadosCurso" [value]="periodo.value">
+                  {{ periodo.label }}
+                </option>
+              </select>
+            </div>
+  
+            <!-- Año -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Año:</label>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="OfertaAcademica.Anno"
+                placeholder="Ingrese el año de la oferta académica"
+              />
+            </div>
+  
+            <!-- Cursos disponibles en formato de cards -->
+<div class="row mt-4">
+    <div class="col-md-6 mb-3" *ngFor="let curso of Cursos()">
+      <ng-container *ngIf="curso.CursoId">
+        <div
+          class="card h-100 shadow-sm bg-white border-2"
+          [ngClass]="{ 'border-success border-3': esCursoSeleccionado(curso.CursoId!) }"
+          (click)="onCursoChange(curso.CursoId!)"
+          style="cursor: pointer; transition: 0.3s ease;"
+        >
+          <div class="card-body">
+            <h5 class="card-title text-primary">{{ curso.Curso }}</h5>
+            <p class="card-text"><strong>Materia:</strong> {{ curso.Materia?.Materia }}</p>
+            <p class="card-text"><strong>Docente:</strong> {{ curso.Docente?.Docente }}</p>
+            <p class="card-text"><strong>Sede:</strong> {{ curso.Sede?.Sede }}</p>
+            <p class="card-text" *ngIf="isDate(curso.FechaInicio)">
+                <strong>Inicio:</strong> {{ curso.FechaInicio | date }}
+              </p>
+              <p class="card-text" *ngIf="!isDate(curso.FechaInicio)">
+                <strong>Inicio:</strong> {{ curso.FechaInicio }}
+              </p>
+              
+            <p class="card-text"><strong>Estado:</strong> {{ curso.Estado }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  
+              
+            <!-- Botón de Guardar -->
+            <div class="d-flex justify-content-center">
+              <button
+                class="btn btn-primary"
+                [disabled]="!OfertaAcademica.OfertaAcademica || OfertaAcademica.CursosOfertaAcademica?.length === 0"
+                (click)="modificarOfertaAcademica(OfertaAcademica.OfertaAcademicaId, $event)"
+              >
+                Guardar Cambios
+              </button>
+            </div>
+  
+            <!-- Alerta -->
+            <div *ngIf="mostrarAlerta" class="alert mt-3" [ngClass]="{
+              'alert-success': tipoAlerta === 'success',
+              'alert-danger': tipoAlerta === 'error'
+            }">
+              {{ mensajeAlerta }}
+              <button type="button" class="btn-close float-end" (click)="mostrarAlerta = false"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

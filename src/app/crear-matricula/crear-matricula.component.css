@@ -1,0 +1,16 @@
+.card-curso {
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+  }
+  
+  .card-curso:hover {
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.2);
+  }
+  
+  .card-curso.selected {
+    border: 2px solid #007bff;
+    background-color: #e8f0fe;
+  }
+  

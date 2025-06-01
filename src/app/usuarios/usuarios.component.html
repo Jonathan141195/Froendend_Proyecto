@@ -1,0 +1,77 @@
+<br/>
+<br/>
+<div class="container mt-5">
+    <h2>Usuarios</h2>
+
+    <!-- Botón de Crear Sede -->
+    <button class="btn btn-primary mb-3" (click)="redirigirCrearUsuario()">Crear Usuario</button>
+
+    <div class="row">
+        @for (Usuario of Usuarios(); track Usuario.UserId) {
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Usuario ID: <strong>{{ Usuario.UserId }}</strong></h5>
+
+                        <div class="form-group mb-2">
+                            <label>Nombre del Usuario</label>
+                            <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="Usuario.name"
+                              
+                            />
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label>Rol</label>
+                            <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="Usuario.RolId"
+                               
+                            />
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label>Email</label>
+                            <input 
+                                type="email" 
+                                class="form-control"
+                                [value]="Usuario.CorreoElectronico"
+                               
+                            />
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label>Username</label>
+                            <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="Usuario.Username"
+                                
+                            />
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-3">
+                            <button class="btn btn-warning btn-sm" (click)="redirigirEditarUsuario(Usuario.UserId ?? '')"
+                            >
+                            Editar Usuario
+                              </button>  
+                            <button class="btn btn-danger btn-sm" (click)="borrarUsuario(Usuario.UserId)">
+                                Borrar Usuario
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        } @empty {
+            <div class="col-12">
+                <p class="text-center">Nada que mostrar.</p>
+            </div>
+        }
+    </div>
+
+
+</div>
+

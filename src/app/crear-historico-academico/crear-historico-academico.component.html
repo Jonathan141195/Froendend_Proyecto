@@ -1,0 +1,69 @@
+<br/>
+<br/>
+<div class="container">
+    <h2>Crear HistoricoAcademico</h2>
+
+    <form (ngSubmit)="agregarHistorialAcademico()">
+        <div class="mb-3">
+            <label class="form-label">Nombre del HistoricoAcademico</label>
+            <input type="text" class="form-control" [(ngModel)]="HistorialAcademico" name="HistorialAcademico" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">EstudianteId</label>
+            <select class="form-select" [(ngModel)]="EstudianteId" name="EstudianteId">
+                <option *ngFor="let estudiante of Estudiantes()" [value]="estudiante.EstudianteId">
+                    {{ estudiante.Estudiante }}
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Curso</label>
+            <select id="Curso" class="form-select" #cursoSelect>
+                <option *ngFor="let curso of Cursos()" [value]="curso.CursoId">
+                    {{ curso.Curso }}
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fecha de Registro</label>
+            <input type="date" class="form-control" #fechaRegistroInput>
+        </div>
+        
+
+        <div class="mb-3">
+            <label class="form-label">Nota</label>
+            <input type="number" class="form-control" #notaInput min="1">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Estado del Curso</label>
+            <select class="form-select" [(ngModel)]="estado" name="estado">
+                <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+              </select>
+              
+        </div>
+        
+        
+
+        <button type="button" class="btn btn-primary" 
+                (click)="agregarCurso(cursoSelect.value, fechaRegistroInput.value,notaInput.value, estado || 'Activo')">
+            Agregar Curso
+        </button>
+
+        <h3>Cursos Agregadas</h3>
+        <ul>
+            <li *ngFor="let curso of cursosSeleccionados; let i = index; trackBy: trackByIndex">
+                {{ curso.CursoId }} - FechaRegistro: {{ curso.FechaRegistro }} - Nota: {{ curso.Nota }}
+                <button type="button" class="btn btn-danger btn-sm" (click)="eliminarCurso(i)">Eliminar</button>
+            </li>
+        </ul>
+
+        <button type="submit" class="btn btn-success">Guardar HistoricoAcademico</button>
+    </form>
+
+    <div *ngIf="mostrarAlerta" class="alert alert-warning">
+        {{ mensajeAlerta }}
+    </div>
+</div>

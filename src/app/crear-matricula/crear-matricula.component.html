@@ -1,0 +1,113 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Crear Matrícula</h2>
+
+  <!-- Nombre de la Matrícula -->
+  <div class="mb-3">
+    <label class="form-label fw-bold">Nombre de la Matrícula</label>
+    <input type="text" class="form-control" [(ngModel)]="Matricula" name="Matricula" required>
+  </div>
+
+  <form (ngSubmit)="agregarMatricula()" class="card p-4 shadow-sm">
+    <!-- Estudiante -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Seleccionar Estudiante</label>
+      <select class="form-select" [(ngModel)]="EstudianteId" name="EstudianteId" (change)="onEstudianteSeleccionado($event)" required>
+        <option value="" disabled selected>Seleccione un estudiante</option>
+        <option *ngFor="let estudiante of Estudiantes()" [value]="estudiante.EstudianteId">
+          {{ estudiante.Estudiante }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Carrera -->
+    <div class="mb-3" *ngIf="Carreras.length > 0">
+      <label class="form-label fw-bold">Seleccionar Carrera</label>
+      <select class="form-select" [(ngModel)]="CarreraId" name="CarreraId" required>
+        <option value="" disabled selected>Seleccione una carrera</option>
+        <option *ngFor="let carrera of Carreras" [value]="carrera.CarreraId">
+          {{ carrera.Carrera }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Periodo y Año -->
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">Periodo</label>
+        <select class="form-select" [(ngModel)]="periodo" name="periodo" required>
+          <option *ngFor="let p of periodos" [value]="p">{{ p }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold">Seleccionar Año</label>
+        <select class="form-select" [(ngModel)]="anioSeleccionado" name="anioSeleccionado" required>
+          <option value="" disabled selected>Seleccione un año</option>
+          <option *ngFor="let anio of anios" [value]="anio">{{ anio }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Cargar Cursos -->
+    <div class="mb-3">
+      <button type="button" class="btn btn-primary" (click)="obtenerCursosPorOferta()">Cargar Cursos</button>
+    </div>
+
+    <!-- Lista de Cursos -->
+    <div class="row">
+      <div *ngIf="listaCursos.length === 0" class="alert alert-warning col-12">
+        No hay cursos disponibles para la carrera y periodo seleccionados.
+      </div>
+
+      <div class="col-md-4 mb-3" *ngFor="let curso of listaCursos">
+        <div
+          class="card h-100"
+          [ngClass]="{ 'border-success': esCursoSeleccionado(curso.CursoId ?? '') }"
+          (click)="toggleSeleccionCurso(curso.CursoId ?? '')"
+        >
+          <div class="card-body">
+            <h5 class="card-title text-primary">{{ curso.Curso }}</h5>
+            <p class="card-text">
+              <strong>Docente:</strong> {{ curso.Docente?.Docente }}<br>
+              <strong>Materia:</strong> {{ curso.Materia?.Materia }}<br>
+              <strong>Créditos:</strong> {{ curso.Materia?.Creditos }}<br>
+              <strong>Inicio:</strong> {{ curso.FechaInicio | date }}<br>
+              <strong>Fin:</strong> {{ curso.FechaFin | date }}<br>
+              <strong>Estado:</strong> {{ curso.Estado }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cálculo de costos -->
+    <div class="text-end mt-3">
+      <button type="button" class="btn btn-info" (click)="calcularCostoTotal()" [disabled]="cursosSeleccionados.length === 0">
+        Calcular Costo Matrícula
+      </button>
+    </div>
+
+    <!-- Desglose de costos -->
+    <div *ngIf="TotalMatricula > 0" class="alert alert-primary mt-3">
+      <p><strong>Costo por Créditos:</strong> {{ TotalMatricula - CostoMatricula - CostoPoliza | currency:'CRC' }}</p>
+      <p><strong>Costo Matrícula:</strong> {{ CostoMatricula | currency:'CRC' }}</p>
+      <p><strong>Costo Póliza:</strong> {{ CostoPoliza | currency:'CRC' }}</p>
+      <hr>
+      <p class="fw-bold fs-5">Total a Pagar: {{ TotalMatricula | currency:'CRC' }}</p>
+    </div>
+
+    <!-- Botón de Guardado -->
+    <div class="text-end mt-4">
+      <button type="submit" class="btn btn-success mt-4"
+  [disabled]="!Matricula || !EstudianteId || cursosSeleccionados.length === 0">
+  Guardar Matrícula
+</button>
+
+    </div>
+  </form>
+
+  <!-- Alerta -->
+  <div *ngIf="mostrarAlerta" class="alert alert-warning mt-3">
+    {{ mensajeAlerta }}
+  </div>
+</div>

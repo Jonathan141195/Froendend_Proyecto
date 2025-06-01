@@ -1,0 +1,30 @@
+<br>
+
+<br/>
+
+<li>
+    <input placeholder="Agregar Distrito" type="text" #nuevoDistrito />
+ 
+    <select id="Canton" class="form-select" [(ngModel)]="Canton" (change)="onCantonChange($event)">
+    
+        @for (Canton of Cantones(); track Canton.CantonId) {
+            <option [value]="Canton.CantonId">
+                {{ Canton.Canton }}
+              </option>
+          } @empty {
+            <li>Nada que mostrar.</li>
+          }
+    </select>
+    
+
+    <button (click)="agregarDistrito(nuevoDistrito.value, CantonId)">Agregar Distrito</button>
+
+</li>
+<!-- ComboBox para seleccionar el Cantón -->
+<br><br/>
+<label for="canton" class="form-label">Canton</label>
+
+
+
+
+<p>crear-distrito works!</p>

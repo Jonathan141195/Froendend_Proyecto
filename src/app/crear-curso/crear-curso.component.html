@@ -1,0 +1,102 @@
+<br/>
+<br/>
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Crear Nuevo Curso</h2>
+
+  <div class="card p-4 shadow-sm">
+    <!-- Nombre del Curso -->
+    <div class="mb-3">
+      <label for="nombreCurso" class="form-label">Nombre del Curso</label>
+      <input
+        placeholder="Ingrese el nombre del Curso"
+        type="text"
+        class="form-control"
+        [(ngModel)]="Curso"
+        id="nombreCurso"
+      />
+    </div>
+
+    <!-- Selección de Docente -->
+    <div class="mb-3">
+      <label for="Docente" class="form-label">Docente</label>
+      <select id="Docente" class="form-select" [(ngModel)]="DocenteId" (change)="onDocenteChange($event)">
+        <option *ngFor="let docente of Docentes()" [value]="docente.DocenteId">
+          {{ docente.Docente }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Selección de Sede -->
+    <div class="mb-3">
+      <label for="Sede" class="form-label">Sede</label>
+      <select id="Sede" class="form-select" [(ngModel)]="SedeId" (change)="onSedesChange($event)">
+        <option *ngFor="let sede of Sedes()" [value]="sede.SedeId">
+          {{ sede.Sede }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Selección de Materia -->
+    <div class="mb-3">
+      <label for="Materia" class="form-label">Materia</label>
+      <select id="Materia" class="form-select" [(ngModel)]="MateriaId" (change)="onMateriaChange($event)">
+        <option *ngFor="let materia of Materias()" [value]="materia.MateriaId">
+          {{ materia.Materia }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Fecha de Inicio -->
+    <div class="mb-3">
+      <label for="FechaInicio" class="form-label">Fecha de Inicio</label>
+      <input type="date" id="FechaInicio" class="form-control" [(ngModel)]="FechaInicio" />
+    </div>
+
+    <!-- Fecha de Fin -->
+    <div class="mb-3">
+      <label for="FechaFin" class="form-label">Fecha de Fin</label>
+      <input type="date" id="FechaFin" class="form-control" [(ngModel)]="FechaFin" />
+    </div>
+
+    <!-- Hora Inicial -->
+    <div class="mb-3">
+      <label for="HoraInicial" class="form-label">Hora Inicial</label>
+      <input type="time" id="HoraInicial" class="form-control" [(ngModel)]="HoraInicial" />
+    </div>
+
+    <!-- Hora Final -->
+    <div class="mb-3">
+      <label for="HoraFinal" class="form-label">Hora Final</label>
+      <input type="time" id="HoraFinal" class="form-control" [(ngModel)]="HoraFinal" />
+    </div>
+
+    <!-- Cupo Máximo -->
+    <div class="mb-3">
+      <label for="CupoMaximo" class="form-label">Cupo Máximo</label>
+      <input type="number" id="CupoMaximo" class="form-control" [(ngModel)]="CupoMaximo" />
+    </div>
+
+    <!-- Cupo Disponible -->
+    <div class="mb-3">
+      <label for="CupoDisponible" class="form-label">Cupo Disponible</label>
+      <input type="number" id="CupoDisponible" class="form-control" [(ngModel)]="CupoDisponible" />
+    </div>
+
+    <!-- Estado -->
+    <div class="mb-3">
+      <label for="Estado" class="form-label">Estado del Curso</label>
+      <select id="Estado" class="form-select" [(ngModel)]="Estado">
+        <option *ngFor="let estado of Estados" [value]="estado">
+          {{ estado }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Botón para agregar curso -->
+    <button class="btn btn-primary w-100" 
+    (click)="agregarCurso(Curso,  FechaInicio, CupoDisponible.toString(), FechaFin, HoraInicial, HoraFinal, CupoMaximo.toString(), Estado, SedeId.toString(), MateriaId.toString(), DocenteId.toString())">
+Agregar Curso
+</button>
+
+  </div>
+</div>

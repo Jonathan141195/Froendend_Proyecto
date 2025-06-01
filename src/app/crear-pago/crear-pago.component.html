@@ -1,0 +1,89 @@
+<br/>
+<br/>
+<div class="container mt-5">
+    <h2 class="text-primary mb-4">Pago de Matrícula</h2>
+  
+    <!-- Datos de la Matrícula -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header bg-info text-white">
+        Información Económica de la Matrícula
+      </div>
+      <div class="card-body">
+        <p><strong>Número de Matrícula:</strong> {{ pago.Matricula?.MatriculaId }}</p>
+        <p><strong>Nombre de Matrícula:</strong> {{ pago.Matricula?.Matricula }}</p>
+        <p><strong>Total a Pagar:</strong> <span class="text-success fw-bold">{{ pago.Matricula?.TotalMatricula | currency:'CRC' }}</span></p>
+      </div>
+    </div>
+  
+    <!-- Formulario de Pago -->
+    <form (ngSubmit)="realizarPago()" #formPago="ngForm">
+      <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+          Realizar Pago
+        </div>
+        <div class="card-body">
+  
+          <!-- Método de Pago -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">Método de Pago</label>
+            <select class="form-select" required [(ngModel)]="pago.MetodoPago" name="MetodoPago">
+              <option [ngValue]="undefined">Seleccione un método</option>
+              <option *ngFor="let metodo of metodoPagoOptions" [value]="metodo">{{ metodo }}</option>
+            </select>
+          </div>
+  
+          <!-- Información de Tarjeta -->
+          <div *ngIf="pago.MetodoPago === 'Tarjeta'" class="mb-3 border p-3 rounded bg-light">
+            <div class="mb-2">
+              <label class="form-label">Número de Tarjeta</label>
+              <input type="text" class="form-control" [(ngModel)]="tarjetaInfo.numero" name="numeroTarjeta">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Nombre en la Tarjeta</label>
+              <input type="text" class="form-control" [(ngModel)]="tarjetaInfo.nombre" name="nombreTarjeta">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Fecha de Vencimiento</label>
+              <input type="text" class="form-control" placeholder="MM/AA" [(ngModel)]="tarjetaInfo.vencimiento" name="vencimientoTarjeta">
+            </div>
+            <div class="mb-2">
+              <label class="form-label">CVV</label>
+              <input type="password" class="form-control" [(ngModel)]="tarjetaInfo.cvv" name="cvvTarjeta">
+            </div>
+          </div>
+  
+          <!-- Monto entregado -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">Monto Entregado</label>
+            <input type="number" class="form-control" required [(ngModel)]="pago.Monto" name="Monto" (input)="calcularCambio()" min="0">
+          </div>
+  
+          <!-- Cambio -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">Cambio</label>
+            <input type="text" class="form-control" [value]="pago.Cambio || '₡0'" readonly>
+          </div>
+  
+          <!-- Recibo -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">Número de Recibo / Comprobante</label>
+            <input type="text" class="form-control" [(ngModel)]="pago.Recibo" name="Recibo" readonly>
+          </div>
+  
+          <!-- Botón de Confirmación -->
+          <div class="text-end">
+            <button type="submit" class="btn btn-success" [disabled]="!formPago.valid || cargando">
+              <i class="bi bi-cash-coin"></i> {{ cargando ? 'Procesando...' : 'Confirmar Pago' }}
+            </button>
+          </div>
+  
+        </div>
+      </div>
+    </form>
+  
+    <!-- Alerta -->
+    <div *ngIf="mostrarAlerta" class="alert mt-4" [ngClass]="{'alert-success': tipoAlerta === 'success', 'alert-danger': tipoAlerta === 'error'}">
+      {{ mensajeAlerta }}
+    </div>
+  </div>
+  

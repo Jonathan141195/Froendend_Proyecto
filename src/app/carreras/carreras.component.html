@@ -1,0 +1,58 @@
+<br/>
+<br/>
+<div class="container mt-5">
+    <h2>Carreras</h2>
+
+    <!-- Botón de Crear Carrera -->
+    <button class="btn btn-primary mb-3" (click)="redirigirCrearCarrera()">Crear Carrera</button>
+
+    <div class="row">
+        <ng-container *ngFor="let Carrera of Carreras(); ">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Carrera ID: <strong>{{ Carrera.CarreraId }}</strong></h5>
+
+                        <div class="form-group mb-2">
+                            <label>Nombre de la Carrera</label>
+                            <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="Carrera.Carrera"
+                                (keydown.enter)="modificarCarrera(Carrera.CarreraId, $event)"
+                            />
+                        </div>
+
+                        <h6>Sedes donde se imparte:</h6>
+                        <ng-container *ngIf="Carrera.CarreraOnSedes && Carrera.CarreraOnSedes.length > 0; else sinSedes">
+                            <ul>
+                                <li *ngFor="let cs of Carrera.CarreraOnSedes">
+                                    {{ cs.Sede.Sede }} - {{ cs.Sede.Direccion }}
+                                </li>
+                            </ul>
+                        </ng-container>
+                        
+                        <!-- Mensaje si no hay sedes -->
+                        <ng-template #sinSedes>
+                            <p>No hay sedes disponibles.</p>
+                        </ng-template>
+                        <div class="d-flex justify-content-between mt-3">
+
+                        <button class="btn btn-warning btn-sm" (click)="redirigirEditarCarrera(Carrera.CarreraId ?? '')"
+                            >
+                                Editar Carrera
+                              </button>
+                       
+                        <button class="btn btn-danger btn-sm mt-2" (click)="borrarCarrera(Carrera.CarreraId)">
+                            Borrar Carrera
+                        </button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+</div>
+
+

@@ -1,0 +1,79 @@
+<br />
+<br />
+<div class="container mt-5">
+  <h2>Cursos</h2>
+  <button class="btn btn-primary mb-3" (click)="redirigirCrearCurso()">Crear Curso</button>
+
+  <div class="row">
+    <div class="col-md-6" *ngFor="let Curso of Cursos()">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">
+            Curso ID: <strong>{{ Curso.CursoId }}</strong>
+          </h5>
+          <p><strong>Nombre del Curso:</strong> {{ Curso.Curso }}</p>
+
+          <h6>Sedes donde se imparte:</h6>
+          <!-- Aquí mostramos el nombre de la sede, si está disponible -->
+          <p *ngIf="Curso.Sede && Curso.Sede.Sede; else sinSede">
+            {{ Curso.Sede.Sede }} <!-- Nombre de la Sede -->
+          </p>
+          <ng-template #sinSede>
+            <p>No hay sede disponible.</p>
+          </ng-template>
+
+          <h6>Materias asociadas:</h6>
+          <!-- Aquí mostramos el nombre de la materia, si está disponible -->
+          <p *ngIf="Curso.Materia && Curso.Materia.Materia; else sinMateria">
+            {{ Curso.Materia.Materia }} <!-- Nombre de la Materia -->
+          </p>
+          <ng-template #sinMateria>
+            <p>No hay materia asociada.</p>
+          </ng-template>
+
+          <h6>Docentes asociados:</h6>
+          <!-- Aquí mostramos el nombre del docente, si está disponible -->
+          <p *ngIf="Curso.Docente && Curso.Docente.Docente; else sinDocente">
+            {{ Curso.Docente.Docente }} <!-- Nombre del Docente -->
+          </p>
+          <ng-template #sinDocente>
+            <p>No hay docente asociado.</p>
+          </ng-template>
+
+          <p>
+            <strong>Fecha de Inicio:</strong>
+            {{ Curso.FechaInicio | date:'dd/MM/yyyy HH:mm:ss' }}
+          </p>
+          <p>
+            <strong>Fecha de Fin:</strong>
+            {{ Curso.FechaFin | date:'dd/MM/yyyy HH:mm:ss' }}
+          </p>
+          <p>
+            <strong>Hora Inicial:</strong>
+            {{ Curso.HoraInicial | date:'HH:mm' }}
+          </p>
+          <p>
+            <strong>Hora Final:</strong>
+            {{ Curso.HoraFinal | date:'HH:mm' }}
+          </p>
+          
+          <p><strong>Cupo Máximo:</strong> {{ Curso.CupoMaximo }}</p>
+          <p><strong>Cupo Disponible:</strong> {{ Curso.CupoDisponible }}</p>
+          <p><strong>Estado:</strong> {{ Curso.Estado }}</p>
+
+          <div class="d-flex justify-content-between mt-3">
+            <button class="btn btn-warning btn-sm" (click)="redirigirEditarCurso(Curso.CursoId ?? '')"
+            >
+                Editar Curso
+              </button>
+            <button class="btn btn-danger btn-sm" (click)="borrarCurso(Curso.CursoId ?? '')">
+              Borrar Curso
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <pre class="mt-3"><code>{{ Cursos() | json }}</code></pre>
+</div>

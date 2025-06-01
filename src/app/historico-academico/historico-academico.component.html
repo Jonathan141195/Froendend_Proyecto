@@ -1,0 +1,63 @@
+<br/>
+<br/>
+<div class="container mt-5">
+    <h2>HistoricoAcademico</h2>
+  
+    <!-- Botón de Crear -->
+    <button class="btn btn-primary mb-3" (click)="redirigirCrearHistoricoAcademico()">
+      Crear HistoricoAcademico
+    </button>
+  
+    <div class="row">
+      <ng-container *ngFor="let HistoricoAcademico of HistoricoAcademicos();">
+        <div class="col-md-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">
+                ID del HistoricoAcademico: <strong>{{ HistoricoAcademico?.HistoricoAcademicoId }}</strong>
+              </h5>
+  
+              <!-- Nombre del Histórico Académico -->
+              <div class="form-group mb-2">
+                <label>Nombre del HistoricoAcademico</label>
+                <input type="text" class="form-control" [value]="HistoricoAcademico?.HistoricoAcademico" readonly />
+              </div>
+  
+              <!-- Lista de Cursos -->
+              <h6>Cursos del HistoricoAcademico:</h6>
+              <ng-container *ngIf="(HistoricoAcademico?.CursosHistorico?.length || 0) > 0; else sinCursos">
+
+                <ul>
+                  <li *ngFor="let curso of HistoricoAcademico?.CursosHistorico">
+                    {{ curso.Curso?.Curso }} (ID: {{ curso.Curso?.CursoId }}) - Nota: {{ curso.Nota }} -
+                    FechaRegistro: {{ curso.FechaRegistro ?? 'N/A' }}
+                  </li>
+                </ul>
+              </ng-container>
+  
+              <!-- Mensaje si no hay cursos -->
+              <ng-template #sinCursos>
+                <p>No hay cursos registrados en este Histórico Académico.</p>
+              </ng-template>
+  
+              <div class="d-flex justify-content-between mt-3">
+               <!-- Botón de Editar -->
+<button class="btn btn-warning btn-sm"
+(click)="HistoricoAcademico?.HistoricoAcademicoId ? redirigirEditarHistoricoAcademico(HistoricoAcademico.HistoricoAcademicoId) : null">
+Editar HistoricoAcademico
+</button>
+
+  
+                <button class="btn btn-danger btn-sm mt-2"
+  (click)="HistoricoAcademico?.HistoricoAcademicoId ? borrarHistoricoAcademico(HistoricoAcademico.HistoricoAcademicoId) : null">
+  Borrar HistoricoAcademico
+</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  

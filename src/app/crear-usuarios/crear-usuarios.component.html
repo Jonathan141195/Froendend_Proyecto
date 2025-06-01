@@ -1,0 +1,45 @@
+<br/>
+<br/>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Crear Nuevo Usuario</h2>
+  
+    <div class="card p-4 shadow-sm">
+      <div class="mb-3">
+        <label for="nombreUsuario" class="form-label">Nombre del Usuario</label>
+        <input placeholder="Ingrese el nombre" type="text" class="form-control" #nuevoname />
+      </div>
+  
+      <div class="mb-3">
+        <label for="rol" class="form-label">Rol</label>
+        <select id="Rol" class="form-select" [(ngModel)]="Rol" (change)="onRolChange($event)">
+    
+            @for (Rol of Roles(); track Rol.RolId) {
+                <option [value]="Rol.RolId">
+                    {{ Rol.Descripcion }}
+                  </option>
+              } @empty {
+                <li>Nada que mostrar.</li>
+              }
+        </select>
+      </div>
+  
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="username" class="form-control" [(ngModel)]="Username" placeholder="Ingrese el Username" />
+      </div>
+  
+      <div class="mb-3">
+        <label for="correoElectronico" class="form-label">Email</label>
+        <input type="correoElectronico" class="form-control" [(ngModel)]="CorreoElectronico" placeholder="Ingrese el correo electrónico" />
+      </div>
+      
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" [(ngModel)]="Password" placeholder="Ingrese la Contraseña" />
+      </div>
+      <button class="btn btn-primary w-100" (click)="agregarSede(nuevoname.value, RolId,Username,CorreoElectronico,Password)">
+        Agregar Usuario
+      </button>
+    </div>
+  </div>
+  

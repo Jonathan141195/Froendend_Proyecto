@@ -1,0 +1,103 @@
+<br/>
+<br/>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-lg border-0 rounded-4">
+          <div class="card-body p-4">
+            <h4 class="text-center mb-4 fw-bold text-primary">
+              <i class="bi bi-person-lines-fill"></i> Editar Sede
+            </h4>
+  
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="nombreSede" class="form-label fw-semibold">Nombre de la Sede:</label>
+              <input
+                id="nombreSede"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese el nombre de la Sede"
+                [(ngModel)]="Sede.Sede"
+                (blur)="modificarSede(Sede.SedeId, $event)" />
+            </div>
+  
+            <!-- Teléfono -->
+            <div class="mb-3">
+              <label for="telefono" class="form-label fw-semibold">Teléfono:</label>
+              <input
+                id="telefono"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese el teléfono"
+                [(ngModel)]="Sede.Telefono"
+                (blur)="modificarSede(Sede.SedeId, $event)" />
+            </div>
+            <!-- Campo Distrito -->
+             <!-- Campo Distrito -->
+<div class="mb-3">
+    <label for="DistritoId" class="form-label fw-semibold">Distrito:</label>
+    <div class="input-group">
+      <span class="input-group-text"><i class="bi bi-map"></i></span>
+      <select 
+        id="DistritoId" 
+        class="form-select" 
+        [(ngModel)]="DistritoId" 
+        (change)="onDistritoChange($event)"  
+      >
+        <option *ngFor="let distrito of Distritos()" [value]="distrito.DistritoId">
+          {{ distrito.Distrito }}
+        </option>
+        <option *ngIf="Distritos().length === 0" disabled>No hay distritos disponibles</option>
+      </select>
+    </div>
+  </div>
+  
+
+  
+  
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label fw-semibold">Email:</label>
+              <input
+                id="email"
+                type="email"
+                class="form-control"
+                placeholder="Ingrese el email"
+                [(ngModel)]="Sede.Email"
+                (blur)="modificarSede(Sede.SedeId, $event)" />
+            </div>
+  
+            <!-- Dirección -->
+            <div class="mb-3">
+              <label for="direccion" class="form-label fw-semibold">Dirección:</label>
+              <input
+                id="direccion"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese la dirección"
+                [(ngModel)]="Sede.Direccion"
+                (blur)="modificarSede(Sede.SedeId, $event)" />
+            </div>
+  
+            <!-- Botón para modificar estudiante -->
+            <div class="d-flex justify-content-center">
+              <button 
+                class="btn btn-primary"
+                (click)="modificarSede(Sede.SedeId, $event)">
+                Guardar Cambios
+              </button>
+            </div>
+  
+            <!-- Alerta de éxito -->
+            <div *ngIf="mostrarAlerta" class="alert alert-success mt-3">
+              {{ mensajeAlerta }}
+              <button type="button" class="close" (click)="mostrarAlerta = false">x</button>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,93 @@
+<br/>
+<br/>
+<div class="container mt-5" style="margin-top: 80px;">
+<div class="container mt-5">
+    <h2>Estudiantes</h2>
+
+    <!-- Botón de Crear Sede -->
+    <button class="btn btn-primary mb-3" (click)="redirigirCrearEstudiante()">Crear Estudiante</button>
+    <button class="btn btn-primary mb-3" (click)="generarPDF()">Exportar PDF</button>
+
+
+    <div class="row">
+        @for (Estudiante of Estudiantes(); track Estudiante.EstudianteId) {
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Estudiante ID: <strong>{{ Estudiante.EstudianteId }}</strong></h5>
+
+                        <div class="form-group mb-2">
+                            <label>Nombre del Estudiante</label>
+                            <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="Estudiante.Estudiante"
+                                (keydown.enter)="modificarEstudiante(Estudiante.EstudianteId, $event)"
+                            />
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label>Cedula</label>
+                            <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="Estudiante.Cedula"
+                                (keydown.enter)="modificarEstudiante(Estudiante.EstudianteId, $event)"
+                            />
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label>Email</label>
+                            <input 
+                                type="email" 
+                                class="form-control"
+                                [value]="Estudiante.Email"
+                                (keydown.enter)="modificarEstudiante(Estudiante.EstudianteId, $event)"
+                            />
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label>Teléfono</label>
+                            <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="Estudiante.Telefono"
+                                (keydown.enter)="modificarEstudiante(Estudiante.EstudianteId, $event)"
+                            />
+                        </div>
+                        <div class="form-group mb-2">
+                            <label>Teléfono</label>
+                            <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="Estudiante.Direccion"
+                                (keydown.enter)="modificarEstudiante(Estudiante.EstudianteId, $event)"
+                            />
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-3">
+                           
+                               <!-- Botón Editar -->
+            <button class="btn btn-warning btn-sm" (click)="redirigirEditarEstudiante(Estudiante.EstudianteId ?? '')"
+            >
+                Editar Estudiante
+              </button> 
+                            <button class="btn btn-danger btn-sm" (click)="borrarEstudiante(Estudiante.EstudianteId)">
+                                Borrar Estudiante
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        } @empty {
+            <div class="col-12">
+                <p class="text-center">Nada que mostrar.</p>
+            </div>
+        }
+    </div>
+
+  
+   
+</div>
+
+</div>

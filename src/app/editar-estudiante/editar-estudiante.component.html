@@ -1,0 +1,93 @@
+<br/>
+<br/>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-lg border-0 rounded-4">
+          <div class="card-body p-4">
+            <h4 class="text-center mb-4 fw-bold text-primary">
+              <i class="bi bi-person-lines-fill"></i> Editar Estudiante
+            </h4>
+  
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="nombreEstudiante" class="form-label fw-semibold">Nombre del Estudiante:</label>
+              <input
+                id="nombreEstudiante"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese el nombre del estudiante"
+                [(ngModel)]="Estudiante.Estudiante"
+                (blur)="modificarEstudiante(Estudiante.EstudianteId, $event)" />
+            </div>
+  
+            <!-- Teléfono -->
+            <div class="mb-3">
+              <label for="telefono" class="form-label fw-semibold">Teléfono:</label>
+              <input
+                id="telefono"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese el teléfono"
+                [(ngModel)]="Estudiante.Telefono"
+                (blur)="modificarEstudiante(Estudiante.EstudianteId, $event)" />
+            </div>
+  
+            <!-- Cédula -->
+            <div class="mb-3">
+              <label for="cedula" class="form-label fw-semibold">Cédula:</label>
+              <input
+                id="cedula"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese la cédula"
+                [(ngModel)]="Estudiante.Cedula"
+                (blur)="modificarEstudiante(Estudiante.EstudianteId, $event)" />
+            </div>
+  
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label fw-semibold">Email:</label>
+              <input
+                id="email"
+                type="email"
+                class="form-control"
+                placeholder="Ingrese el email"
+                [(ngModel)]="Estudiante.Email"
+                (blur)="modificarEstudiante(Estudiante.EstudianteId, $event)" />
+            </div>
+  
+            <!-- Dirección -->
+            <div class="mb-3">
+              <label for="direccion" class="form-label fw-semibold">Dirección:</label>
+              <input
+                id="direccion"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese la dirección"
+                [(ngModel)]="Estudiante.Direccion"
+                (blur)="modificarEstudiante(Estudiante.EstudianteId, $event)" />
+            </div>
+  
+            <!-- Botón para modificar estudiante -->
+            <div class="d-flex justify-content-center">
+              <button 
+                class="btn btn-primary"
+                (click)="modificarEstudiante(Estudiante.EstudianteId, $event)">
+                Guardar Cambios
+              </button>
+            </div>
+  
+            <!-- Alerta de éxito -->
+            <div *ngIf="mostrarAlerta" class="alert alert-success mt-3">
+              {{ mensajeAlerta }}
+              <button type="button" class="close" (click)="mostrarAlerta = false">x</button>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,70 @@
+<br/>
+<br/>
+<div class="container mt-5">
+    <h2>Planes de Estudio</h2>
+
+    <!-- Botón de Crear Plan de Estudio -->
+    <button class="btn btn-primary mb-3" (click)="redirigirCrearPlanEstudio()">Crear Plan de Estudio</button>
+
+    <div class="row">
+        <ng-container *ngFor="let PlanEstudio of PlanEstudios();">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">ID del Plan: <strong>{{ PlanEstudio.PlanEstudioId }}</strong></h5>
+
+                        <!-- Nombre del Plan de Estudio -->
+                        <div class="form-group mb-2">
+                            <label>Nombre del Plan de Estudio</label>
+                            <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="PlanEstudio.PlanEstudio"
+                                readonly
+                            />
+                        </div>
+
+                              <!-- Mostrar nombre de la carrera -->
+                              <div class="form-group mb-2">
+                                <label>Carrera</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control"
+                                    [value]="PlanEstudio.Carrera?.Carrera" 
+                                    readonly
+                                />
+                            </div>
+                        <!-- Lista de Materias en el Plan de Estudio -->
+                        <h6>Materias del Plan:</h6>
+                        <ng-container *ngIf="PlanEstudio.MateriasOnPlanEstudio && PlanEstudio.MateriasOnPlanEstudio.length > 0; else sinMaterias">
+                            <ul>
+                                <li *ngFor="let materia of PlanEstudio.MateriasOnPlanEstudio">
+                                    {{ materia.Materia?.Materia }} (ID: {{ materia.Materia?.MateriaId }})
+                                    - Semestre: {{ materia.Semestre }} 
+                                    - Requisitos: {{ materia.Requisitos ?? 'N/A' }}
+                                </li>
+                            </ul>
+                        </ng-container>
+                        
+                        <!-- Mensaje si no hay materias -->
+                        <ng-template #sinMaterias>
+                            <p>No hay materias registradas en este plan de estudio.</p>
+                        </ng-template>
+
+                        <div class="d-flex justify-content-between mt-3">
+                            <!-- Botón de Editar -->
+                            <button class="btn btn-warning btn-sm" (click)="redirigirEditarPlanEstudio(PlanEstudio.PlanEstudioId)">
+                                Editar Plan de Estudio
+                            </button>
+
+                            <!-- Botón de Borrar -->
+                            <button class="btn btn-danger btn-sm mt-2" (click)="borrarPlanEstudio(PlanEstudio.PlanEstudioId)">
+                                Borrar Plan de Estudio
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

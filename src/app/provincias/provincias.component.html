@@ -1,0 +1,23 @@
+<br/>
+<br/>
+
+<ul>
+    @for (Provincia of Provincias(); track Provincia.ProvinciaId) {
+      <li>
+        {{ Provincia.ProvinciaId }}
+        <input type="text"
+          (keydown.enter)="modificarProvinvia(Provincia.ProvinciaId, $event)"
+          [value]="Provincia.Provincia"
+        />
+        <button (click)="borrarProvinvia(Provincia.ProvinciaId)">Borra provincia {{ Provincia.ProvinciaId }}</button>
+      </li>
+    } @empty {
+      <li>Nada que mostrar.</li>
+    }
+    <li><input placeholder="Agregar" type="text" (keydown.enter)="agregarProvinvia($event)" /></li>
+  </ul>
+<pre>
+    <code>
+        {{Provincias() | json }}
+    </code>
+</pre>

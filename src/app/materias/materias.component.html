@@ -1,0 +1,60 @@
+<br/>
+<br/>
+<div class="container mt-5">
+    <h2>Materias</h2>
+
+    <!-- Botón de Crear Sede -->
+    <button class="btn btn-primary mb-3" (click)="redirigirCrearMateria()">Crear Materia</button>
+
+    <div class="row">
+        @for (Materia of Materias(); track Materia.MateriaId) {
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Materia ID: <strong>{{ Materia.MateriaId }}</strong></h5>
+
+                        <div class="form-group mb-2">
+                            <label>Nombre de la Materia</label>
+                            <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="Materia.Materia"
+                                
+                            />
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label>Creditos</label>
+                            <input 
+                                type="text" 
+                                class="form-control"
+                                [value]="Materia.Creditos"
+                               
+                            />
+                        </div>
+
+                       
+
+                        <div class="d-flex justify-content-between mt-3">
+                            <button class="btn btn-warning btn-sm" (click)="redirigirEditarMateria(Materia.MateriaId ?? '')"
+                            >
+                                Editar Materia
+                              </button>
+                            
+                            <button class="btn btn-danger btn-sm" (click)="borrarMateria(Materia.MateriaId)">
+                                Borrar Materia
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        } @empty {
+            <div class="col-12">
+                <p class="text-center">Nada que mostrar.</p>
+            </div>
+        }
+    </div>
+
+   
+</div>
+

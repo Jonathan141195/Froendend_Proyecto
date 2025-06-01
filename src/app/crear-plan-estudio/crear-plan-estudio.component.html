@@ -1,0 +1,64 @@
+<br/>
+<br/>
+<div class="container">
+    <h2>Crear Plan de Estudio</h2>
+
+    <form (ngSubmit)="agregarPlanEstudio()">
+        <div class="mb-3">
+            <label class="form-label">Nombre del Plan de Estudio</label>
+            <input type="text" class="form-control" [(ngModel)]="PlanEstudio" name="PlanEstudio" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Carrera</label>
+            <select class="form-select" [(ngModel)]="CarreraId" name="CarreraId">
+                <option *ngFor="let carrera of Carreras()" [value]="carrera.CarreraId">
+                    {{ carrera.Carrera }}
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Materia</label>
+            <select id="Materia" class="form-select" #materiaSelect>
+                <option *ngFor="let materia of Materias()" [value]="materia.MateriaId">
+                    {{ materia.Materia }}
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Semestre</label>
+            <input type="number" class="form-control" #semestreInput min="1">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Requisitos</label>
+            <select class="form-select" #requisitoSelect>
+                <option *ngFor="let materia of Materias()" [value]="materia.MateriaId">
+                    {{ materia.Materia }}
+                </option>
+            </select>
+        </div>
+        
+
+        <button type="button" class="btn btn-primary" 
+                (click)="agregarMateria(materiaSelect.value, semestreInput.value, requisitoSelect.value)">
+            Agregar Materia
+        </button>
+
+        <h3>Materias Agregadas</h3>
+        <ul>
+            <li *ngFor="let materia of materiasSeleccionadas; let i = index; trackBy: trackByIndex">
+                {{ materia.MateriaId }} - Semestre: {{ materia.Semestre }} - Requisitos: {{ materia.Requisitos }}
+                <button type="button" class="btn btn-danger btn-sm" (click)="eliminarMateria(i)">Eliminar</button>
+            </li>
+        </ul>
+
+        <button type="submit" class="btn btn-success">Guardar Plan de Estudio</button>
+    </form>
+
+    <div *ngIf="mostrarAlerta" class="alert alert-warning">
+        {{ mensajeAlerta }}
+    </div>
+</div>

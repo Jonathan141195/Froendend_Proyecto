@@ -1,0 +1,23 @@
+<br/>
+<br/>
+<button (click)="redirigirCrearCanton()">Crear Cantón</button>
+<ul>
+    @for (Canton of Cantones(); track Canton.CantonId) {
+      <li>
+        {{  Canton.CantonId }}
+        <input type="text"
+          (keydown.enter)="modificarCanton(Canton.CantonId, $event)"
+          [value]="Canton.Canton"
+        />
+        <button (click)="borrarCanton(Canton.CantonId)">Borra canton {{ Canton.CantonId }}</button>
+      </li>
+    } @empty {
+      <li>Nada que mostrar.</li>
+    }
+    <li><input placeholder="Agregar" type="text" (keydown.enter)="agregarCanton($event)" /></li>
+  </ul>
+<pre>
+    <code>
+        {{Cantones() | json }}
+    </code>
+</pre>

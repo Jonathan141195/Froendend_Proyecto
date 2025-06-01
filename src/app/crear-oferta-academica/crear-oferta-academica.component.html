@@ -1,0 +1,103 @@
+<br/>
+<br/>
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-primary">Crear Oferta Académica</h2>
+  
+    <form (ngSubmit)="agregarOfertaAcademica()" class="needs-validation" novalidate>
+      <!-- Información General -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-info-circle"></i> Información General
+        </div>
+        <div class="card-body">
+          <!-- Nombre de la Oferta Académica -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">Nombre de la Oferta Académica</label>
+            <input type="text" class="form-control" [(ngModel)]="OfertaAcademica" name="OfertaAcademica" required>
+            <div class="invalid-feedback">Este campo es obligatorio.</div>
+          </div>
+  
+          <!-- Selección de Carrera -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">Carrera</label>
+            <select class="form-select" [(ngModel)]="CarreraId" name="CarreraId" required>
+              <option *ngFor="let carrera of Carreras()" [value]="carrera.CarreraId">
+                {{ carrera.Carrera }}
+              </option>
+            </select>
+            <div class="invalid-feedback">Por favor, seleccione una carrera.</div>
+          </div>
+  
+          <!-- Año y Período -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Año</label>
+              <input type="number" class="form-control" [(ngModel)]="Anno" name="Anno" min="2000" required>
+              <div class="invalid-feedback">Ingrese un año válido.</div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Período</label>
+              <select class="form-select" [(ngModel)]="periodo" name="periodo" required>
+                <option *ngFor="let p of periodos" [value]="p">{{ p }}</option>
+              </select>
+              <div class="invalid-feedback">Seleccione un período.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <!-- Fecha de Registro -->
+  <div class="mb-3">
+    <label class="form-label fw-bold">Fecha de Registro</label>
+    <input type="date" class="form-control" [(ngModel)]="fechaRegistro" name="fechaRegistro">
+  </div>
+    <!-- Lista de Cursos Disponibles -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-secondary text-white">
+        <i class="bi bi-book"></i> Lista de Cursos
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 mb-3" *ngFor="let curso of Cursos()">
+            <div class="card h-100 shadow-sm"
+                 [ngClass]="{ 'border border-success border-3': esCursoSeleccionado(curso.CursoId?.toString() || '') }">
+              <div class="card-body">
+                <h5 class="card-title text-dark">Curso: {{ curso.Curso }}</h5>
+                <p class="card-text">
+                  <strong>Docente:</strong> {{ curso.Docente?.Docente }}<br>
+                  <strong>Materia:</strong> {{ curso.Materia?.Materia }}<br>
+                  <strong>Sede:</strong> {{ curso.Sede?.Sede }}<br>
+                  <strong>Créditos:</strong> {{ curso.Materia?.Creditos }}
+                </p>
+                <button type="button"
+                        class="btn"
+                        [ngClass]="esCursoSeleccionado(curso.CursoId?.toString() || '') ? 'btn-danger' : 'btn-outline-primary'"
+                        (click)="alternarCurso(curso.CursoId?.toString() || '')">
+                  <i class="bi"
+                     [ngClass]="esCursoSeleccionado(curso.CursoId?.toString() || '') ? 'bi-x-circle' : 'bi-plus-circle'"></i>
+                  {{ esCursoSeleccionado(curso.CursoId?.toString() || '') ? 'Quitar' : 'Agregar' }}
+                </button>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  
+      <!-- Botón de Guardar -->
+      <div class="text-center">
+        <button type="submit" class="btn btn-success">
+          <i class="bi bi-save"></i> Guardar Oferta Académica
+        </button>
+      </div>
+    </form>
+  
+    <!-- Alerta de Mensaje -->
+    <div *ngIf="mostrarAlerta" class="alert alert-warning mt-3">
+      {{ mensajeAlerta }}
+    </div>
+  </div>
+  
+ 
+  

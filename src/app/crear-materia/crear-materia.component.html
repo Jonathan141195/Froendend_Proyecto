@@ -1,0 +1,24 @@
+<br/>
+<br/>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Crear Nueva Materia</h2>
+  
+    <div class="card p-4 shadow-sm">
+      <div class="mb-3">
+        <label for="nombreMateria" class="form-label">Nombre de la materia</label>
+        <input placeholder="Ingrese el nombre" type="text" class="form-control" #nuevoMateria />
+      </div>
+  <!-- Campo para los créditos -->
+  <div class="mb-3">
+    <label for="creditos" class="form-label">Créditos</label>
+    <input type="number" class="form-control" [(ngModel)]="Creditos" placeholder="Ingrese los Créditos" />
+  </div>
+
+  <!-- Botón para agregar la materia -->
+  <button class="btn btn-primary w-100" (click)="agregarMateria(nuevoMateria.value, Creditos)">
+    Agregar Materia
+  </button>
+  
+     
+    </div>
+  </div>

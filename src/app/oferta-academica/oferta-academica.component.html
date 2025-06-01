@@ -1,0 +1,83 @@
+<br/>
+<br/>
+<div class="container mt-5">
+  <h2 class="text-center mb-4 fw-bold text-primary">
+    <i class="bi bi-book-half"></i> Oferta Académica
+  </h2>
+
+  <!-- Botón de Crear -->
+  <div class="text-end mb-3">
+    <button class="btn btn-success" (click)="redirigirCrearOfertaAcademica()">
+      <i class="bi bi-plus-circle me-1"></i> Crear Oferta Académica
+    </button>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <ng-container *ngFor="let ofertaAcademica of OfertaAcademicas()">
+      <div class="col">
+        <div class="card h-100 shadow-sm border-0 rounded-4">
+          <div class="card-body">
+            <h5 class="card-title text-primary">
+              <i class="bi bi-journal-code"></i> ID: <strong>{{ ofertaAcademica?.OfertaAcademicaId }}</strong>
+            </h5>
+
+            <!-- Nombre de la Oferta Académica -->
+            <div class="form-group mb-2">
+              <label class="fw-semibold">Nombre</label>
+              <input type="text" class="form-control" [value]="ofertaAcademica.OfertaAcademica" readonly />
+            </div>
+
+             <!-- Carrera -->
+             <div class="form-group mb-2">
+              <label class="fw-semibold">Carrera</label>
+              <input type="text" class="form-control" [value]="ofertaAcademica.Carrera?.Carrera || ofertaAcademica.CarreraId" readonly />
+            </div>
+
+            <!-- Carrera, Período y Año -->
+            <div class="row g-2 mb-3">
+              <div class="col">
+                <label class="fw-semibold">Período</label>
+                <input type="text" class="form-control" [value]="ofertaAcademica.Periodo" readonly />
+              </div>
+              <div class="col">
+                <label class="fw-semibold">Año</label>
+                <input type="text" class="form-control" [value]="ofertaAcademica.Anno" readonly />
+              </div>
+            </div>
+
+            <!-- Lista de Cursos -->
+            <h6 class="mt-3 fw-bold">Cursos:</h6>
+            <ng-container *ngIf="(ofertaAcademica.CursosOfertaAcademica?.length || 0) > 0; else sinCursos">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let curso of ofertaAcademica.CursosOfertaAcademica">
+                  <i class="bi bi-book"></i> {{ curso.Curso?.Curso }} (ID: {{ curso.Curso?.CursoId }}) -
+                  <small class="text-muted">Registro: {{ curso.FechaRegistro | date:'mediumDate' }}</small>
+                </li>
+              </ul>
+            </ng-container>
+
+            <!-- Mensaje si no hay cursos -->
+            <ng-template #sinCursos>
+              <p class="text-muted fst-italic">No hay cursos registrados en la Oferta Académica.</p>
+            </ng-template>
+
+            <div class="d-flex justify-content-between mt-4">
+              <!-- Botón de Editar -->
+              <button class="btn btn-outline-warning btn-sm"
+                (click)="ofertaAcademica?.OfertaAcademicaId && redirigirEditarOfertaAcademica(ofertaAcademica?.OfertaAcademicaId)">
+                <i class="bi bi-pencil-square"></i> Editar
+              </button>
+
+              <!-- Botón de Borrar -->
+              <button class="btn btn-outline-danger btn-sm"
+                (click)="ofertaAcademica?.OfertaAcademicaId && borrarOfertaAcademica(ofertaAcademica?.OfertaAcademicaId)">
+                <i class="bi bi-trash"></i> Borrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+

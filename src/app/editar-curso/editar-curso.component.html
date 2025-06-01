@@ -1,0 +1,161 @@
+<div class="container">
+    <!-- Mensajes de alerta -->
+    <div *ngIf="mostrarAlerta" class="alert" [ngClass]="tipoAlerta">
+      {{ mensajeAlerta }}
+    </div>
+  
+    <form (ngSubmit)="modificarCurso(cursoId ?? '', $event)" #cursoForm="ngForm">
+
+      <div class="form-group">
+        <label for="curso">Nombre del Curso</label>
+        <input 
+          type="text" 
+          id="curso" 
+          [(ngModel)]="Curso.Curso" 
+          name="curso" 
+          class="form-control" 
+          required
+        />
+      </div>
+  
+      <!-- Selección de Materia -->
+      <div class="form-group">
+        <label for="materia">Materia</label>
+        <select 
+          id="materia" 
+          [(ngModel)]="Curso.Materia.MateriaId" 
+          name="materia" 
+          class="form-control" 
+          required
+        >
+          <option *ngFor="let materia of Materias()" [value]="materia.MateriaId">
+            {{ materia.Materia }}
+          </option>
+        </select>
+      </div>
+  
+      <!-- Selección de Docente -->
+      <div class="form-group">
+        <label for="docente">Docente</label>
+        <select 
+          id="docente" 
+          [(ngModel)]="Curso.Docente.DocenteId" 
+          name="docente" 
+          class="form-control" 
+          required
+        >
+          <option *ngFor="let docente of Docentes()" [value]="docente.DocenteId">
+            {{ docente.Docente }}
+          </option>
+        </select>
+      </div>
+  
+      <!-- Selección de Sede -->
+      <div class="form-group">
+        <label for="sede">Sede</label>
+        <select 
+          id="sede" 
+          [(ngModel)]="Curso.Sede.SedeId" 
+          name="sede" 
+          class="form-control" 
+          required
+        >
+          <option *ngFor="let sede of Sedes()" [value]="sede.SedeId">
+            {{ sede.Sede }}
+          </option>
+        </select>
+      </div>
+  
+      <!-- Fechas y Horarios -->
+      <div class="form-group">
+        <label for="fechaInicio">Fecha de Inicio</label>
+        <input 
+          type="date" 
+          id="fechaInicio" 
+          [(ngModel)]="Curso.FechaInicio" 
+          name="fechaInicio" 
+          class="form-control" 
+          required
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="fechaFin">Fecha de Fin</label>
+        <input 
+          type="date" 
+          id="fechaFin" 
+          [(ngModel)]="Curso.FechaFin" 
+          name="fechaFin" 
+          class="form-control" 
+          required
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="horaInicio">Hora de Inicio</label>
+        <input 
+          type="time" 
+          id="horaInicio" 
+          [(ngModel)]="Curso.HoraInicial" 
+          name="horaInicio" 
+          class="form-control" 
+          required
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="horaFin">Hora de Fin</label>
+        <input 
+          type="time" 
+          id="horaFin" 
+          [(ngModel)]="Curso.HoraFinal" 
+          name="horaFin" 
+          class="form-control" 
+          required
+        />
+      </div>
+  
+      <!-- Cupos -->
+      <div class="form-group">
+        <label for="cupoMaximo">Cupo Máximo</label>
+        <input 
+          type="number" 
+          id="cupoMaximo" 
+          [(ngModel)]="Curso.CupoMaximo" 
+          name="cupoMaximo" 
+          class="form-control" 
+          required
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="cupoDisponible">Cupo Disponible</label>
+        <input 
+          type="number" 
+          id="cupoDisponible" 
+          [(ngModel)]="Curso.CupoDisponible" 
+          name="cupoDisponible" 
+          class="form-control" 
+          required
+        />
+      </div>
+  
+      <!-- Estado -->
+      <div class="form-group">
+        <label for="estado">Estado</label>
+        <select 
+          id="estado" 
+          [(ngModel)]="Curso.Estado" 
+          name="estado" 
+          class="form-control"
+        >
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+      </div>
+  
+      <!-- Botón de envío -->
+      <button type="submit" class="btn btn-primary" [disabled]="!cursoForm.valid">Modificar Curso</button>
+    </form>
+  </div>
+  

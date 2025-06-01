@@ -1,0 +1,36 @@
+
+<br/>
+<br/>
+<div class="container mt-4">
+    <h2 class="text-center text-primary">Lista de Pagos</h2>
+  
+    <table class="table table-bordered table-hover mt-4">
+      <thead class="table-dark">
+        <tr>
+          <th>Recibo</th>
+          <th>Monto</th>
+          <th>Cambio</th>
+          <th>Fecha de Pago</th>
+          <th>Matrícula</th>
+          <th>Total Matrícula</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pago of Pagos()">
+          <td>{{ pago.Recibo }}</td>
+          <td>{{ pago.Monto }}</td>
+          <td>{{ pago.Cambio }}</td>
+          <td>{{ pago.FechaPago | date: 'short' }}</td>
+          <td>{{ pago.Matricula?.Matricula }}</td>
+          <td>{{ pago.Matricula?.TotalMatricula }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="borrarPago(pago.PagoId)">
+              <i class="bi bi-trash"></i> Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

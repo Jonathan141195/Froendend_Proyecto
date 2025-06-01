@@ -1,0 +1,8 @@
+.cursor-pointer {
+    cursor: pointer;
+  }
+  
+  .border-success {
+    border: 2px solid #198754 !important; /* borde verde si está seleccionado */
+  }
+  
